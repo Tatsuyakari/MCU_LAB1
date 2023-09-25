@@ -91,55 +91,56 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  void TurnOn(int num) {
-    HAL_GPIO_WritePin(GPIOA, C1_Pin | C2_Pin | C3_Pin | C4_Pin |
-                             C5_Pin | C6_Pin | C7_Pin | C8_Pin |
-                             C9_Pin | C10_Pin | C11_Pin | C12_Pin,
-                      GPIO_PIN_RESET);  // Reset (LOW) all pins
-
-    switch (num) {
-        case 1:
-            HAL_GPIO_WritePin(GPIOA, C1_Pin, GPIO_PIN_SET); // Set (HIGH) C1 to turn it on
-            break;
-        case 2:
-            HAL_GPIO_WritePin(GPIOA, C2_Pin, GPIO_PIN_SET);
-            break;
-        case 3:
-            HAL_GPIO_WritePin(GPIOA, C3_Pin, GPIO_PIN_SET);
-            break;
-        case 4:
-            HAL_GPIO_WritePin(GPIOA, C4_Pin, GPIO_PIN_SET);
-            break;
-        case 5:
-            HAL_GPIO_WritePin(GPIOA, C5_Pin, GPIO_PIN_SET);
-            break;
-        case 6:
-            HAL_GPIO_WritePin(GPIOA, C6_Pin, GPIO_PIN_SET);
-            break;
-        case 7:
-            HAL_GPIO_WritePin(GPIOA, C7_Pin, GPIO_PIN_SET);
-            break;
-        case 8:
-            HAL_GPIO_WritePin(GPIOA, C8_Pin, GPIO_PIN_SET);
-            break;
-        case 9:
-            HAL_GPIO_WritePin(GPIOA, C9_Pin, GPIO_PIN_SET);
-            break;
-        case 10:
-            HAL_GPIO_WritePin(GPIOA, C10_Pin, GPIO_PIN_SET);
-            break;
-        case 11:
-            HAL_GPIO_WritePin(GPIOA, C11_Pin, GPIO_PIN_SET);
-            break;
-        case 12:
-            HAL_GPIO_WritePin(GPIOA, C12_Pin, GPIO_PIN_SET);
-            break;
-        default:
-            // Handle invalid num here
-            break;
+  void TurnOn(int num)
+  {
+    switch (num)
+    {
+    case 1:
+      HAL_GPIO_WritePin(GPIOA, C1_Pin, GPIO_PIN_SET); // Set (HIGH) C1 to turn it on
+      break;
+    case 2:
+      HAL_GPIO_WritePin(GPIOA, C2_Pin, GPIO_PIN_SET);
+      break;
+    case 3:
+      HAL_GPIO_WritePin(GPIOA, C3_Pin, GPIO_PIN_SET);
+      break;
+    case 4:
+      HAL_GPIO_WritePin(GPIOA, C4_Pin, GPIO_PIN_SET);
+      break;
+    case 5:
+      HAL_GPIO_WritePin(GPIOA, C5_Pin, GPIO_PIN_SET);
+      break;
+    case 6:
+      HAL_GPIO_WritePin(GPIOA, C6_Pin, GPIO_PIN_SET);
+      break;
+    case 7:
+      HAL_GPIO_WritePin(GPIOA, C7_Pin, GPIO_PIN_SET);
+      break;
+    case 8:
+      HAL_GPIO_WritePin(GPIOA, C8_Pin, GPIO_PIN_SET);
+      break;
+    case 9:
+      HAL_GPIO_WritePin(GPIOA, C9_Pin, GPIO_PIN_SET);
+      break;
+    case 10:
+      HAL_GPIO_WritePin(GPIOA, C10_Pin, GPIO_PIN_SET);
+      break;
+    case 11:
+      HAL_GPIO_WritePin(GPIOA, C11_Pin, GPIO_PIN_SET);
+      break;
+    case 12:
+      HAL_GPIO_WritePin(GPIOA, C12_Pin, GPIO_PIN_SET);
+      break;
+    default:
+      // Handle invalid num here
+      break;
     }
-}
-
+  }
+  void clearAllClock()
+  {
+    HAL_GPIO_WritePin(GPIOA, C1_Pin | C2_Pin | C3_Pin | C4_Pin | C5_Pin | C6_Pin | C7_Pin | C8_Pin | C9_Pin | C10_Pin | C11_Pin | C12_Pin,
+                      GPIO_PIN_RESET); // Reset (LOW) all pins
+  }
 
   int count = 1;
   while (1)
@@ -147,12 +148,20 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    TurnOn(count);
-    count++;
-    if (count > 12)
-    {
-      count = 1;
-    }
+    TurnOn(1);
+    TurnOn(2);
+    TurnOn(3);
+    TurnOn(4);
+    TurnOn(5);
+    TurnOn(6);
+    TurnOn(7);
+    TurnOn(8);
+    TurnOn(9);
+    TurnOn(10);
+    TurnOn(11);
+    TurnOn(12);
+    HAL_Delay(1000);
+    clearAllClock();
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
