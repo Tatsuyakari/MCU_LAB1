@@ -91,8 +91,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  void TurnOn(int num)
+  void setNumberOnClock(int num)
   {
+    num++;
     switch (num)
     {
     case 1:
@@ -142,26 +143,19 @@ int main(void)
                       GPIO_PIN_RESET); // Reset (LOW) all pins
   }
 
-  int count = 1;
+  int count = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    TurnOn(1);
-    TurnOn(2);
-    TurnOn(3);
-    TurnOn(4);
-    TurnOn(5);
-    TurnOn(6);
-    TurnOn(7);
-    TurnOn(8);
-    TurnOn(9);
-    TurnOn(10);
-    TurnOn(11);
-    TurnOn(12);
-    HAL_Delay(1000);
     clearAllClock();
+    setNumberOnClock(count);
+    count++;
+    if (count > 11)
+    {
+      count = 0;
+    }
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
