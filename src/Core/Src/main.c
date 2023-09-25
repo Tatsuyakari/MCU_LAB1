@@ -142,7 +142,8 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, C1_Pin | C2_Pin | C3_Pin | C4_Pin | C5_Pin | C6_Pin | C7_Pin | C8_Pin | C9_Pin | C10_Pin | C11_Pin | C12_Pin,
                       GPIO_PIN_RESET); // Reset (LOW) all pins
   }
-  void clearNumberOnClock(int num){
+  void clearNumberOnClock(int num)
+  {
     num++;
     switch (num)
     {
@@ -187,24 +188,35 @@ int main(void)
       break;
     }
   }
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
 
-  int count = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-    setNumberOnClock(count);
-    HAL_Delay(1000);
-    clearNumberOnClock(count);
-    HAL_Delay(1000);
-    count++;
-    if (count > 11)
+    clearAllClock();
+    setNumberOnClock(hour);
+    setNumberOnClock(minute / 5);
+    setNumberOnClock(second / 5);
+    second++;
+    if (second == 60)
     {
-      count = 0;
+      second = 0;
+      minute++;
     }
-    
+    if (minute == 60)
+    {
+      minute = 0;
+      hour++;
+    }
+    if (hour == 12)
+    {
+      hour = 0;
+    }
+    HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
