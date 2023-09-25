@@ -91,27 +91,49 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter = 0;
   while (1)
    {
-     /* Turn on RED LED and turn off the others for 5 seconds */
-     HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-     HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
-     HAL_Delay(5000);  // 5 seconds delay
+     /* Update traffic light states based on the counter value */
+     switch (counter)
+     {
+       case 0:
+         /* Group 1 (Road 1): RED1 on */
+         /* Group 2 (Road 2): GREEN2 on */
+         HAL_GPIO_WritePin(GPIOA, R1_Pin|G2_Pin, GPIO_PIN_RESET);
+         break;
 
-     /* Turn on YELLOW LED and turn off the others for 2 seconds */
-     HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-     HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
-     HAL_Delay(2000);  // 2 seconds delay
+       case 3:
+         /* Group 2 (Road 2): GREEN2 off, YELLOW2 on */
+         HAL_GPIO_WritePin(GPIOA, G2_Pin|Y2_Pin, GPIO_PIN_SET);
+         break;
 
-     /* Turn on GREEN LED and turn off the others for 3 seconds */
-     HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-     HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-     HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
-     HAL_Delay(3000);  // 3 seconds delay
+       case 5:
+         /* Group 1 (Road 1): RED1 off, GREEN1 on */
+         /* Group 2 (Road 2): YELLOW2 off */
+         HAL_GPIO_WritePin(GPIOA, R1_Pin|G1_Pin|Y2_Pin, GPIO_PIN_SET);
+         break;
+
+       case 8:
+         /* Group 1 (Road 1): GREEN1 off, YELLOW1 on */
+         /* Group 2 (Road 2): GREEN2 on */
+         HAL_GPIO_WritePin(GPIOA, G1_Pin|Y1_Pin|G2_Pin, GPIO_PIN_RESET);
+         break;
+
+       default:
+         /* All lights off */
+         HAL_GPIO_WritePin(GPIOA, R1_Pin|Y1_Pin|G1_Pin|R2_Pin|Y2_Pin|G2_Pin, GPIO_PIN_SET);
+         break;
+     }
+
+     /* Increment the counter and wrap around if needed */
+     counter++;
+     if (counter > 9) {
+       counter = 0;
+     }
+
+     HAL_Delay(1000);  // 1 second delay
    }
-
   /* USER CODE END 3 */
 }
 
@@ -163,10 +185,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, R2_Pin|Y2_Pin|G2_Pin|R1_Pin
+                          |Y1_Pin|G1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : R2_Pin Y2_Pin G2_Pin R1_Pin
+                           Y1_Pin G1_Pin */
+  GPIO_InitStruct.Pin = R2_Pin|Y2_Pin|G2_Pin|R1_Pin
+                          |Y1_Pin|G1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
