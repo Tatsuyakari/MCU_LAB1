@@ -189,14 +189,63 @@ int main(void)
       }
     }
   int counter = 0;
+  int Lcounter1 = 0;
+  int Lcounter2 = 0;
 
   while (1)
   {
-    /* USER CODE END WHILE */
-	  if( counter >= 10) counter = 0;
-	  display7SEG ( counter ++) ;
-	  HAL_Delay (1000) ;
-    /* USER CODE BEGIN 3 */
+	  if (counter == 0)
+	     {
+	       // Turn on R1, G2 , else off
+	       HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET); // Turn on R1
+	       Lcounter1+=5;
+	       HAL_GPIO_WritePin(Y1_GPIO_Port, Y1_Pin, GPIO_PIN_SET);   // Turn off Y1
+	       HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_SET);   // Turn off G1
+	       HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);   // Turn off R2
+	       HAL_GPIO_WritePin(Y2_GPIO_Port, Y2_Pin, GPIO_PIN_SET);   // Turn off Y2
+	       HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_RESET); // Turn on G2
+	     }
+	     if (counter == 3)
+	     {
+	       // R1 stays on, G2 off and Y2 on
+	       HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET); // Turn on R1
+	       HAL_GPIO_WritePin(Y1_GPIO_Port, Y1_Pin, GPIO_PIN_SET);   // Turn off Y1
+	       HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_SET);   // Turn off G1
+	       HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_SET);   // Turn off R2
+	       HAL_GPIO_WritePin(Y2_GPIO_Port, Y2_Pin, GPIO_PIN_RESET); // Turn on Y2
+	       HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_SET);   // Turn off G2
+	     }
+	     if (counter == 5)
+	     {
+	       // R1 off, Y2 off, G1 on and R2 on
+	       HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);   // Turn off R1
+	       HAL_GPIO_WritePin(Y1_GPIO_Port, Y1_Pin, GPIO_PIN_SET);   // Turn off Y1
+	       HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_RESET); // Turn on G1
+	       Lcounter1+=3;
+	       HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_RESET); // Turn on R2
+	       HAL_GPIO_WritePin(Y2_GPIO_Port, Y2_Pin, GPIO_PIN_SET);   // Turn off Y2
+	       HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_SET);   // Turn off G2
+	     }
+	     if (counter == 8)
+	     {
+	       // R2 stays on, G1 off and Y1 on
+	       HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_SET);   // Turn off R1
+	       HAL_GPIO_WritePin(Y1_GPIO_Port, Y1_Pin, GPIO_PIN_RESET); // Turn on Y1
+	       Lcounter1+=2;
+	       HAL_GPIO_WritePin(G1_GPIO_Port, G1_Pin, GPIO_PIN_SET);   // Turn off G1
+	       HAL_GPIO_WritePin(R2_GPIO_Port, R2_Pin, GPIO_PIN_RESET); // Turn on R2
+	       HAL_GPIO_WritePin(Y2_GPIO_Port, Y2_Pin, GPIO_PIN_SET);   // Turn off Y2
+	       HAL_GPIO_WritePin(G2_GPIO_Port, G2_Pin, GPIO_PIN_SET);   // Turn off G2
+	     }
+
+	     display7SEG(Lcounter1--);
+	     /* Increment the counter and wrap around if needed */
+	     counter++;
+	     if (counter > 9)
+	     {
+	       counter = 0;
+	     }
+	     HAL_Delay(1000); // 1 second delay
   }
   /* USER CODE END 3 */
 }
