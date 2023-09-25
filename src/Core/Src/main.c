@@ -142,6 +142,51 @@ int main(void)
     HAL_GPIO_WritePin(GPIOA, C1_Pin | C2_Pin | C3_Pin | C4_Pin | C5_Pin | C6_Pin | C7_Pin | C8_Pin | C9_Pin | C10_Pin | C11_Pin | C12_Pin,
                       GPIO_PIN_RESET); // Reset (LOW) all pins
   }
+  void clearNumberOnClock(int num){
+    num++;
+    switch (num)
+    {
+    case 1:
+      HAL_GPIO_WritePin(GPIOA, C1_Pin, GPIO_PIN_RESET); // Set (HIGH) C1 to turn it off
+      break;
+    case 2:
+      HAL_GPIO_WritePin(GPIOA, C2_Pin, GPIO_PIN_RESET);
+      break;
+    case 3:
+      HAL_GPIO_WritePin(GPIOA, C3_Pin, GPIO_PIN_RESET);
+      break;
+    case 4:
+      HAL_GPIO_WritePin(GPIOA, C4_Pin, GPIO_PIN_RESET);
+      break;
+    case 5:
+      HAL_GPIO_WritePin(GPIOA, C5_Pin, GPIO_PIN_RESET);
+      break;
+    case 6:
+      HAL_GPIO_WritePin(GPIOA, C6_Pin, GPIO_PIN_RESET);
+      break;
+    case 7:
+      HAL_GPIO_WritePin(GPIOA, C7_Pin, GPIO_PIN_RESET);
+      break;
+    case 8:
+      HAL_GPIO_WritePin(GPIOA, C8_Pin, GPIO_PIN_RESET);
+      break;
+    case 9:
+      HAL_GPIO_WritePin(GPIOA, C9_Pin, GPIO_PIN_RESET);
+      break;
+    case 10:
+      HAL_GPIO_WritePin(GPIOA, C10_Pin, GPIO_PIN_RESET);
+      break;
+    case 11:
+      HAL_GPIO_WritePin(GPIOA, C11_Pin, GPIO_PIN_RESET);
+      break;
+    case 12:
+      HAL_GPIO_WritePin(GPIOA, C12_Pin, GPIO_PIN_RESET);
+      break;
+    default:
+      // Handle invalid num here
+      break;
+    }
+  }
 
   int count = 0;
   while (1)
@@ -149,14 +194,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    clearAllClock();
+
     setNumberOnClock(count);
+    HAL_Delay(1000);
+    clearNumberOnClock(count);
+    HAL_Delay(1000);
     count++;
     if (count > 11)
     {
       count = 0;
     }
-    HAL_Delay(1000);
+    
   }
   /* USER CODE END 3 */
 }
