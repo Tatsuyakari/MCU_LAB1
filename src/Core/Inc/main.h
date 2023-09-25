@@ -76,6 +76,14 @@ void Error_Handler(void);
 #define LB1_GPIO_Port GPIOB
 #define LC1_Pin GPIO_PIN_2
 #define LC1_GPIO_Port GPIOB
+#define LD2_Pin GPIO_PIN_10
+#define LD2_GPIO_Port GPIOB
+#define LE2_Pin GPIO_PIN_11
+#define LE2_GPIO_Port GPIOB
+#define LF2_Pin GPIO_PIN_12
+#define LF2_GPIO_Port GPIOB
+#define LG2_Pin GPIO_PIN_13
+#define LG2_GPIO_Port GPIOB
 #define LD1_Pin GPIO_PIN_3
 #define LD1_GPIO_Port GPIOB
 #define LE1_Pin GPIO_PIN_4
@@ -84,6 +92,12 @@ void Error_Handler(void);
 #define LF1_GPIO_Port GPIOB
 #define LG1_Pin GPIO_PIN_6
 #define LG1_GPIO_Port GPIOB
+#define LA2_Pin GPIO_PIN_7
+#define LA2_GPIO_Port GPIOB
+#define LB2_Pin GPIO_PIN_8
+#define LB2_GPIO_Port GPIOB
+#define LC2_Pin GPIO_PIN_9
+#define LC2_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
